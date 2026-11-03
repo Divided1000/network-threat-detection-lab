@@ -1,0 +1,33 @@
+name: nethunt-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Generate dataset (deterministic)
+        run: PYTHONPATH=src python -m nethunt.generate --out data/
+
+      - name: Run detection pipeline
+        run: PYTHONPATH=src python -m nethunt.cli --data data/ --intel data/intel_feed.json
+
+      - name: Validate detection coverage (purple-team gate)
+        run: PYTHONPATH=src python -m nethunt.validate --data data/ --intel data/intel_feed.json --min-coverage 100
+
+      - name: Run tests (TP / FP coverage)
+        run: python -m pytest -q

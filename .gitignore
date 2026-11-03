@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+data/*.log
+data/*.tsv
+data/findings.json
+# keep sample intel feed tracked
+!data/intel_feed.json
+
+# pentest-lab generated evidence (simulated loot)
+pentest-lab/loot/

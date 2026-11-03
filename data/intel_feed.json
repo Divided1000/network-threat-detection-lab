@@ -1,0 +1,47 @@
+{
+  "feed_name": "nethunt-sample-intel",
+  "description": "Sample threat-intel IOC feed for intel-driven hunting. In production this would be fed from MISP, a commercial feed, or an internal cluster-tracking system.",
+  "updated": "2026-10-11",
+  "indicators": [
+    {
+      "type": "ipv4",
+      "value": "193.201.9.7",
+      "threat": "APT-DEMO-C2",
+      "confidence": "high",
+      "diamond_adversary": "APT-DEMO",
+      "note": "Known command-and-control node, TLS on 443"
+    },
+    {
+      "type": "domain",
+      "value": "malicious-c2.example",
+      "threat": "APT-DEMO-C2",
+      "confidence": "high",
+      "diamond_adversary": "APT-DEMO",
+      "note": "C2 domain resolving to 193.201.9.7"
+    },
+    {
+      "type": "ipv4",
+      "value": "185.220.101.45",
+      "threat": "COMMODITY-BEACON",
+      "confidence": "medium",
+      "diamond_adversary": "UNK-COMMODITY",
+      "note": "Beaconing infrastructure seen in prior campaigns"
+    },
+    {
+      "type": "domain",
+      "value": "exfil-cdn.net",
+      "threat": "DNS-TUNNEL",
+      "confidence": "medium",
+      "diamond_adversary": "INSIDER-OR-COMMODITY",
+      "note": "Domain abused for DNS tunneling / data exfiltration"
+    },
+    {
+      "type": "ipv4",
+      "value": "45.133.1.77",
+      "threat": "EXFIL-SINK",
+      "confidence": "low",
+      "diamond_adversary": "UNK",
+      "note": "Bulletproof-hosted sink seen receiving large uploads"
+    }
+  ]
+}
