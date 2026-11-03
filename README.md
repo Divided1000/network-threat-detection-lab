@@ -12,6 +12,27 @@ true-positive and false-positive traffic, and hand an analyst context instead of
 
 ---
 
+## Repository contents — two connected tools
+
+This repo holds two tools that form a full **red → purple → blue** loop: one attacks, one
+detects, and a mapping ties the attacker's techniques to the detections that catch them.
+
+| Tool | Role | What it does |
+|------|------|--------------|
+| **NetHunt** (this directory) | Blue + Purple | Baselines per-host network behavior, runs 6 ATT&CK-mapped detections, enriches with threat intel, and validates its own detection coverage against emulated attacks. |
+| **Pentest Lab** ([`pentest-lab/`](pentest-lab/)) | Red | A self-contained, loopback-only engagement against an intentionally-vulnerable service (recon → exploit → post-exploit), delivered as a pentest report. |
+
+**How they connect:** the pentest lab executes attacker techniques; NetHunt detects the
+ones that cross the network (scanning, exfiltration, C2); and
+[`pentest-lab/docs/attack_mapping.md`](pentest-lab/docs/attack_mapping.md) maps every
+technique to its detection — and honestly flags the ones that need application, auth, or
+endpoint logs that a network sensor can't see. That gap analysis is the purple-team payoff.
+
+The rest of this README documents **NetHunt**. For the offensive side, see the
+[Pentest Lab README](pentest-lab/README.md).
+
+---
+
 ## Why this exists
 
 Rule-only detection misses the behavior that defines insider threats and modern C2:
