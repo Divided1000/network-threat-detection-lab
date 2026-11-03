@@ -145,24 +145,3 @@ gates CI, so a change that silently breaks a detection fails the build. See
 | D004 network scan | T1046 | 10.10.0.27 |
 | D005 lateral movement | T1021 | 10.10.0.14 |
 | D006 known-bad IOC | T1071 | 10.10.0.19 |
-
-## Suggested resume bullets
-
-> **Network Behavioral Threat-Hunting Engine (Zeek + MITRE ATT&CK + Diamond Model)**
-> *Python, pandas, Jupyter, Zeek (conn/dns), MITRE ATT&CK, Diamond Model, pytest, GitHub Actions*
->
-> - Built a network threat-hunting engine that baselines per-host behavior from Zeek
->   connection and DNS logs using robust (median/MAD) statistics, detecting C2
->   beaconing, DNS tunneling, data exfiltration, scanning, and lateral movement — each
->   mapped to MITRE ATT&CK and correlated into a Diamond Model campaign.
-> - Engineered anomaly detections keyed on behavior over time (beacon inter-arrival
->   regularity, outbound-volume z-scores, DNS label entropy) rather than single-event
->   signatures, and enriched findings against a threat-intel IOC feed for intel-driven
->   prioritization and adversary attribution.
-> - Authored a hypothesis-driven Jupyter hunt notebook and shipped 35 unit tests
->   covering true-positive and false-positive cases (including a scan-vs-lateral-movement
->   discriminator) plus a GitHub Actions CI workflow, on a deterministic synthetic dataset.
-> - Built a purple-team detection-coverage harness that emulates ATT&CK-mapped attacks,
->   validates each detection fires on the right host under the correct technique, and
->   gates CI on 100% coverage so a regression fails the build instead of silently eroding
->   detection coverage.
